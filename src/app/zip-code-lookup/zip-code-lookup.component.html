@@ -1,0 +1,25 @@
+<div class="container row g-3 mt-2">
+  <div class="col-sm-5">
+    <label class="form-label" for="Zip Code">Zip Code</label>
+    <input [(ngModel)]="location.zip_code" class="form-control" id="zipcode" type="zipcode" placeholder="21201">
+  </div>
+  <div class="col-sm-3">
+    <label class="form-label" for="Country">Country</label>
+    <input [(ngModel)]="location.country" class="form-control" id="country" type="text" placeholder="US"> 
+  </div>
+  <div class="mb-3">
+    <input class="btn btn-primary" type="submit" value="Submit"  (click)="submitForm(location)"/>
+  </div>  
+</div>
+
+<div *ngIf="haveData" class="container row">
+  <h3 >Information for {{location.zip_code}}, {{location.country}}</h3>
+  <div class="row">
+    <span>Retrived location for {{resp['post code']}}:</span>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let place of resp.places">
+        <span><a [routerLink]="['/city', place['place name'], place['state abbreviation'], resp['country abbreviation']]">{{place['place name']}} - {{place.state}} ({{place['state abbreviation']}})</a>  ({{place.latitude}}, {{place.longitude}})</span>
+      </li>
+    </ul>
+  </div>
+</div>
